@@ -63,7 +63,7 @@ const submitLoginValues = async (formData: FormData): Promise<void> => {
     } catch (error) {
         console.log(error)
     }
-    redirect('/')
+    redirect('https://scheduling-1hrugmw6t-parv7112s-projects.vercel.app/login')
 }
 
 const handleLogoutAction = async () => {

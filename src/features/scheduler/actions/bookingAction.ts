@@ -9,20 +9,10 @@ import { revalidatePath } from "next/cache"
 import mongoose from "mongoose"
 
 const handleBookingAction = async (formData: FormData) => {
-    const cookieStore = await cookies();
-    const token = cookieStore.get('token');
 
-    if (!token) {
-        console.error("No token found");
-        return;
-    }
-
-    const userDetails = jwt.decode(token.value as unknown as string) as UserDetails;
-
-    if (!userDetails || !userDetails.user) {
-        console.error("Invalid user details");
-        return;
-    }
+    const cookieStore = await cookies()
+    const token = cookieStore.get('token')
+    const userDetails = jwt.decode(token?.value as unknown as string) as UserDetails
 
     const fullname = formData.get('fullname');
     const contactNo = formData.get('contactNo');
@@ -34,41 +24,29 @@ const handleBookingAction = async (formData: FormData) => {
     const advance = formData.get('advance');
     const remarks = formData.get('remarks');
     const status = formData.get('status');
-    
-    const user_id = userDetails.user.id;
-    
+    const user_id = userDetails?.user?.id
     const requestBody = {
-        user_id,
-        fullname,
-        contactNo,
-        members,
-        time,
-        date,
-        table,
-        reference,
-        advance,
-        remarks,
-        status
-    };
+        user_id, fullname, contactNo, members, time, date, table, reference, advance, remarks, status
+    }
+    console.log("🚀 ~ handleBookingAction ~ requestBody:", requestBody)
 
-    console.log("🚀 ~ handleBookingAction ~ requestBody:", requestBody);
-
-    const validatedFields = bookingValidationSchema.safeParse(requestBody);
+    const validatedFields = bookingValidationSchema.safeParse(requestBody)
 
     try {
         if (!validatedFields.success) {
-            console.error(validatedFields.error.flatten().fieldErrors);
-            return; // Optionally return an error response here
+            console.error(validatedFields.error.flatten().fieldErrors)
+            return
         } else {
-            await connectToDatabase();
-            const newBooking = await Bookings.create(requestBody);
-            await newBooking.save();
-            await revalidatePath('/bookings'); // Ensure this function behaves as expected
+            await connectToDatabase()
+            const newBooking = await Bookings.create(requestBody)
+            await newBooking.save()
+            revalidatePath('/bookings')
         }
     } catch (error) {
-        console.error("Error during booking action:", error);
+        console.log(error)
     }
-};
+
+}
 
 const getAllUserBookings = async () => {
     const cookieStore = await cookies();
