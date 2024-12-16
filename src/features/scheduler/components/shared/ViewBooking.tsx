@@ -29,7 +29,7 @@ const ViewBooking = ({ booking }: ViewBookingProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <p>View Booking Details</p>
+        <p className="text-sm px-2 cursor-pointer mb-1.5">View Booking Details</p>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[800px]">
         <DialogHeader>
