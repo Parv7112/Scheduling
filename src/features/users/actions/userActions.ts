@@ -41,9 +41,7 @@ const submitLoginValues = async (formData: FormData): Promise<void> => {
     const email = formData.get('email') as string
     const enteredPassword = formData.get('password') as string
     const cookieStore = await cookies()
-    console.log('Hiiiiiiii');
     try {
-            console.log('Heloooooooo');
         await connectToDatabase()
         const user = await User.findOne({ email })
         if (!user) {
@@ -63,7 +61,6 @@ const submitLoginValues = async (formData: FormData): Promise<void> => {
         const token = jwt.sign({ user: jwtDetails }, process.env.JWT_SECRET as string)
         cookieStore.set('token', token, { path: '/' })
     } catch (error) {
-            console.log('Heyyyyyyyyyyy');
         console.log(error)
     }
     redirect('/bookings')
