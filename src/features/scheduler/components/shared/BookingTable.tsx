@@ -81,13 +81,8 @@ export const columns: ColumnDef<IBooking>[] = [
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <div className="flex flex-col">
-            {/* Wrap each action in DropdownMenuItem for consistent styling */}
-            <DropdownMenuItem className="cursor-pointer">
               <ViewBooking booking={row.original} />
-            </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer">
               <EditBooking booking={row.original} />
-            </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer" onClick={() => handleDeleteBookingAction((row.original as IBooking)._id.toString())}>
               Delete Booking
             </DropdownMenuItem>

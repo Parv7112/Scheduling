@@ -33,7 +33,7 @@ export function EditBooking({ booking }: EditBookingProps) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <p>Edit Booking Details</p>
+                <p className="text-sm px-2 cursor-pointer">Edit Booking Details</p>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[800px] max-h-[700px] overflow-y-auto">
                 <DialogHeader>
