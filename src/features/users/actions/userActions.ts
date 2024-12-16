@@ -63,7 +63,7 @@ const submitLoginValues = async (formData: FormData): Promise<void> => {
     } catch (error) {
         console.log(error)
     }
-    redirect('/bookings')
+    redirect('/')
 }
 
 const handleLogoutAction = async () => {
